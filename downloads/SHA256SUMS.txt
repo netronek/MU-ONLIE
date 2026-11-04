@@ -1,0 +1,2 @@
+08aa94ae0b6c913d142fc3f906bd764b3aaa2f4db1184e21356bc5d45916ddc9  AternixMU_Launcher_S6.zip
+8e049ff28e07f25707d13a252ca5860992ba8f2f89f2d065d8a22c2536756f4e  AternixMU_Web_test.zip

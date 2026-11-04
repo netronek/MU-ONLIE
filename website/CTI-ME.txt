@@ -1,0 +1,36 @@
+﻿ATERNIXMU – PRVNÍ TESTOVACÍ WEB
+
+Statický web pro IIS na Windows Server 2022. Nevyžaduje PHP ani SQL.
+Obsahuje: testovací úvodní stránku, informace o projektu, testování,
+stažení launcheru, připravenou sekci pro Discord.
+EXP, drop, pravidla a termín spuštění záměrně nejsou zveřejněny.
+Discord pozvánka zatím nebyla dodána. Registrace ani hráčský účet nejsou připojené.
+Stránka neukazuje živý počet hráčů ani neověřený stav herního serveru.
+
+INSTALACE
+1. Na serveru vytvořte složku C:\AternixWeb.
+2. Do této složky rozbalte celý ZIP: index.html, style.css a assets.
+3. V IIS bude potřeba vytvořit samostatný web pro aternixmu.eu a www.aternixmu.eu
+   se složkou C:\AternixWeb. Neměňte existující web Aternix-Patch.
+4. DNS záznam A pro hlavní doménu změňte z parkovací IP na 141.95.47.104.
+   www může být CNAME na aternixmu.eu. Existující patch záznam ponechte.
+5. Přidejte certifikát pro aternixmu.eu i www.aternixmu.eu pomocí win-acme.
+
+S DNS a HTTPS se pokračuje až po místním ověření webu v IIS.
+Bez těchto kroků balíček není živým webem na veřejné doméně.
+
+ÚPRAVY
+Texty a Discord se upravují v index.html, vzhled v style.css.
+U Discordu nahraďte text pozvánky skutečným HTTPS odkazem.
+Před veřejným spuštěním zkontrolujte všechny texty a odstraňte meta robots noindex,
+pokud si přejete indexaci vyhledávači.
+
+STAŽENÍ LAUNCHERU
+Odkaz míří na novou kopii původního upraveného launcheru na GitHubu.
+EXE se proti již otestované verzi nezměnil. update-source.txt v této kopii
+už obsahuje https://patch.aternixmu.eu. Balíček launcheru není celý herní klient.
+
+OVĚŘENÍ
+Zobrazení v Chromium při 1440x1000 a 390x844: žádné vodorovné přetékání,
+obrázky načtené, navigace do sekcí funkční, bez chyb JavaScriptu.
+Ověřeny lokální odkazy. Nasazení na Windows a veřejné HTTPS ještě není provedeno.
