@@ -21,6 +21,25 @@ private static string NewToken()
     using (RandomNumberGenerator random = RandomNumberGenerator.Create()) random.GetBytes(bytes);
     return Convert.ToBase64String(bytes).TrimEnd('=').Replace('+', '-').Replace('/', '_');
 }
+private static string GenerateSecurityCode()
+{
+    char[] digits = new char[7];
+    byte[] buffer = new byte[32];
+    int filled = 0;
+    using (RandomNumberGenerator random = RandomNumberGenerator.Create())
+    {
+        while (filled < digits.Length)
+        {
+            random.GetBytes(buffer);
+            for (int i = 0; i < buffer.Length && filled < digits.Length; i++)
+            {
+                // Rejection sampling keeps all ten digits equally likely.
+                if (buffer[i] < 250) digits[filled++] = (char)('0' + buffer[i] % 10);
+            }
+        }
+    }
+    return new string(digits);
+}
 private void SetToken(string token)
 {
     HttpCookie cookie = new HttpCookie(CookieName, token);
@@ -93,7 +112,6 @@ protected void Page_Load(object sender, EventArgs e)
     string password = Request.Form["password"] ?? "";
     string repeated = Request.Form["passwordRepeat"] ?? "";
     string email = (Request.Form["email"] ?? "").Trim();
-    string code = Request.Form["securityCode"] ?? "";
     if (!Matches(login, @"\A[A-Za-z0-9]{4,10}\z"))
     { Message = "Login musí mít 4–10 anglických písmen nebo číslic."; return; }
     if (!Matches(password, @"\A[!-~]{8,10}\z"))
@@ -109,10 +127,9 @@ protected void Page_Load(object sender, EventArgs e)
         { Message = "Zadej pouze e-mailovou adresu, bez jména."; return; }
     }
     catch (FormatException) { Message = "Zadej platný e-mail."; return; }
-    if (!Matches(code, @"\A[0-9]{7}\z"))
-    { Message = "Bezpečnostní kód musí obsahovat přesně 7 číslic."; return; }
     try
     {
+        string code = GenerateSecurityCode();
         using (SqlConnection connection = new SqlConnection(
             "Data Source=lpc:localhost;Initial Catalog=MuOnlineS6;Integrated Security=True;Connect Timeout=5;Application Name=AternixWebRegistration;"))
         using (SqlCommand command = new SqlCommand("dbo.WebRegisterAccount", connection))
@@ -156,10 +173,10 @@ protected void Page_Load(object sender, EventArgs e)
 <html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><meta name="theme-color" content="#0b1015"><title>Registrace · AternixMU</title><link rel="icon" href="assets/favicon.ico"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="register.css"></head>
 <body><a class="skip" href="#obsah">Přejít na obsah</a>
 <header class="header"><a class="brand" href="index.html" aria-label="AternixMU — úvod"><span class="brand-symbol" aria-hidden="true">A</span><span>ATERNIX<span class="gold">MU</span><small>MU ONLINE · SEASON 6</small></span></a><nav aria-label="Hlavní navigace"><a href="index.html">Úvod</a><a href="ranking.aspx">Žebříček</a><a href="register.aspx" aria-current="page">Registrace</a><a href="index.html#komunita">Komunita</a></nav><a class="nav-button" href="index.html#stazeni">Získat launcher →</a></header>
-<main id="obsah" class="register-main"><section class="register-intro"><p class="eyebrow">ATERNIXMU / TVŮJ NOVÝ ZAČÁTEK</p><h1>Vytvoř si účet.<br><em>Napiš svůj příběh.</em></h1><p>Jeden herní účet, svět plný možností. Připrav se na cestu světem AternixMU Season 6.</p><div class="register-info"><span class="pill">TESTOVACÍ PROVOZ</span><p>EXP 300× · DROP 30 %</p></div><p class="register-help">Ulož si login, heslo a bezpečnostní kód. Heslo použij jiné než u e-mailu nebo jiných služeb.</p><a class="register-back" href="index.html">← Zpět na hlavní stránku</a></section>
+<main id="obsah" class="register-main"><section class="register-intro"><p class="eyebrow">ATERNIXMU / TVŮJ NOVÝ ZAČÁTEK</p><h1>Vytvoř si účet.<br><em>Napiš svůj příběh.</em></h1><p>Jeden herní účet, svět plný možností. Připrav se na cestu světem AternixMU Season 6.</p><div class="register-info"><span class="pill">TESTOVACÍ PROVOZ</span><p>EXP 300× · DROP 30 %</p></div><p class="register-help">Ulož si login a heslo. Heslo použij jiné než u e-mailu nebo jiných služeb.</p><a class="register-back" href="index.html">← Zpět na hlavní stránku</a></section>
 <section class="register-panel" aria-labelledby="form-title">
 <% if (Succeeded) { %>
-<div class="register-success" role="status"><span aria-hidden="true">✓</span><h2>Účet je vytvořený.</h2><p>Teď se můžeš zkusit přihlásit do hry zadaným loginem a heslem. Bezpečnostní kód si uchovej.</p><a class="button primary full" href="index.html#stazeni">Přejít ke stažení →</a></div>
+<div class="register-success" role="status"><span aria-hidden="true">✓</span><h2>Účet je vytvořený.</h2><p>Teď se můžeš zkusit přihlásit do hry zadaným loginem a heslem.</p><a class="button primary full" href="index.html#stazeni">Přejít ke stažení →</a></div>
 <% } else { %>
 <h2 id="form-title">Registrace hráče</h2><p class="form-subtitle">Vytvoření nového herního účtu</p>
 <% if (!String.IsNullOrEmpty(Message)) { %><div class="register-error" role="alert"><%= Safe(Message) %></div><% } %>
@@ -169,7 +186,6 @@ protected void Page_Load(object sender, EventArgs e)
 <label for="login">Login</label><input id="login" name="login" type="text" required minlength="4" maxlength="10" pattern="[A-Za-z0-9]{4,10}" autocomplete="username" autocapitalize="none" spellcheck="false" aria-describedby="login-help"><small id="login-help">4–10 anglických písmen nebo číslic. Ve hře se přihlašuješ loginem.</small>
 <label for="email">E-mail</label><input id="email" name="email" type="email" required maxlength="50" autocomplete="email" aria-describedby="email-help"><small id="email-help">Kontaktní adresa, nejvýše 50 znaků. Potvrzovací e-mail se zatím neodesílá.</small>
 <div class="form-columns"><div><label for="password">Heslo</label><input id="password" name="password" type="password" required minlength="8" maxlength="10" autocomplete="new-password" aria-describedby="password-help"></div><div><label for="password-repeat">Heslo znovu</label><input id="password-repeat" name="passwordRepeat" type="password" required minlength="8" maxlength="10" autocomplete="new-password"></div></div><small id="password-help">8–10 znaků bez mezer a diakritiky. Délku omezuje herní klient.</small>
-<label for="security-code">Bezpečnostní kód</label><input id="security-code" name="securityCode" type="password" required minlength="7" maxlength="7" pattern="[0-9]{7}" inputmode="numeric" autocomplete="off" aria-describedby="code-help"><small id="code-help">Vymysli si 7 číslic pro herní bezpečnostní operace. Nezadávej rodné číslo.</small>
 <button class="button primary full" type="submit">Vytvořit herní účet <span aria-hidden="true">→</span></button>
 </form>
 <% } %>

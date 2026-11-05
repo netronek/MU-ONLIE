@@ -66,9 +66,12 @@ JoinServer má MD5Encryption=0, DSN míří na localhost / MuOnlineS6.
 Hesla proto používají současný herní režim bez MD5, nikoli moderní webový hash.
 Formulář neposkytuje přihlášení do webového účtu ani obnovu hesla.
 Login 4–10 ASCII písmen/číslic, heslo 8–10 tisknutelných ASCII znaků,
-kontaktní e-mail do 50 znaků a vlastní 7místný číselný bezpečnostní kód.
-Procedura uloží kód do posledních 7 znaků 18znakového sno__numb.
-Ověření kódu v herních bezpečnostních operacích je součástí testu.
+kontaktní e-mail do 50 znaků. Bezpečnostní kód již není ve formuláři.
+Web generuje 7 náhodných číslic pomocí RandomNumberGenerator a rejection sampling.
+Kód se neposílá z formuláře ani nezobrazuje hráči. Existující procedura jej uloží
+do posledních 7 znaků 18znakového sno__numb. SQL procedura se nemění.
+Hráč kód nezná. Operace hry, které jej stále vyžadují, nelze tímto řešením potvrdit;
+tato aktualizace nemění pravidla mazání postav ani jiné herní kontroly.
 Kontaktní e-mail se ukládá, ale potvrzovací e-mail se zatím neposílá.
 HTTPS je povinné. Formulář má náhodný CSRF token v HttpOnly Secure
 __Host-cookie (SameSite Strict), kontrolu vstupů na webu i v proceduře,
@@ -88,12 +91,19 @@ Pokud je přítomný db-test.aspx, po dokončení testování jej odstraňte.
 
 AKCEPTAČNÍ TEST NA WINDOWS
 1. Formulář se zobrazí s českými texty přes HTTPS.
-2. Založte jeden nový testovací účet s nepoužitým heslem a kódem;
-   heslo ani kód neposílejte do chatu.
-3. Ověřte přihlášení ve hře. Potom ověřte bezpečnostní kód na nepotřebné
-   testovací postavě, ne na cenné postavě nebo guildě.
+2. Založte jeden nový testovací účet s nepoužitým heslem;
+   heslo neposílejte do chatu. Kód se generuje na pozadí.
+3. Ověřte přihlášení ve hře. Kód hráči neukazujte ani jej nezveřejňujte.
 4. Stejný login musí být odmítnut bez vytvoření druhého účtu.
 5. Žebříček a úvodní stránka dál fungují.
 Lokálně otestován vzhled a formulářové validační stavy na desktopu/mobilu
 se syntetickými daty a staticky ověřeny parametry, limity a kódování.
 Skutečné spuštění ASP.NET a SQL registrace se ověřuje až na Windows.
+
+OPRAVA REGISTRACE 02 – BEZ POLE BEZPEČNOSTNÍHO KÓDU
+AternixMU_Web_registration_no_code_02.zip obsahuje pouze register.aspx.
+Zálohujte předchozí soubor mimo veřejný web a nahraďte jej v C:\AternixWeb.
+Obnovte https://aternixmu.eu/register.aspx. Pole ani zmínka o kódu již nejsou
+ve formuláři nebo potvrzení úspěchu. Kód se generuje jen na serveru, nikdy
+se neposílá jako skrytý vstup. Případná hodnota securityCode podstrčená
+v požadavku se ignoruje. Účty vytvořené dříve se nemění.
