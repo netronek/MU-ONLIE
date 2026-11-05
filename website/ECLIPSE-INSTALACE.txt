@@ -1,0 +1,24 @@
+﻿ATERNIXMU - ECLIPSE WEB 01
+
+INSTALACE NA WINDOWS SERVERU
+1. Zalohujte celou slozku C:\AternixWeb napr. do C:\AternixWeb-zaloha.
+2. Rozbalte obsah ZIPu primo do C:\AternixWeb a potvrdte nahrazeni souboru.
+   Index.html musi zustat primo v C:\AternixWeb, nikoli v dalsi podslozce.
+3. Otevrete https://aternixmu.eu a stisknete Ctrl+F5.
+4. Zkontrolujte uvod, zebricek, registraci, prihlaseni, vlastni postavy a zmenu hesla.
+
+Novy vzhled: logo AternixMU, rytir s hradem, stribrne a ledove modre barvy.
+Uvod ma animovany dest a obcasne prosvetleni. Tlacitko Efekty vypina animace.
+Web respektuje nastaveni omezeneho pohybu v prohlizeci/systemu.
+
+Serverovy kod ASPX zustal shodny. App_Code, web.config a SQL se timto balikem
+nemeni. Tyto soubory nejsou v ZIPu, musi zustat z funkcni instalace.
+Balik tedy vyzaduje existujici funkcni AternixMU web.
+Puvodni odkaz na stazeni launcheru zustal zachovany.
+
+NAVRAT: obnovte zalohovane webove soubory. Neni potreba menit databazi.
+
+KONTROLY: desktop 1440, tablet 820, mobil 390; bez vodorovneho preteceni;
+prepinani efektu, reduced-motion, formular zmeny hesla v beznem/chybovem/
+uspesnem stavu. Serverovy kod a auth modul porovnany s puvodni verzi.
+Zive ASP.NET/SQL funkce je po nasazeni nutne overit ve Windows.

@@ -91,11 +91,11 @@ protected string Number(object value)
 <link rel="icon" href="assets/favicon.ico">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="ranking.css">
-</head>
+<link rel="stylesheet" href="eclipse.css?v=1"></head>
 <body>
 <a class="skip" href="#obsah">Přejít na obsah</a>
 <header class="header">
-<a class="brand" href="index.html" aria-label="AternixMU — úvod"><span class="brand-symbol" aria-hidden="true">A</span><span>ATERNIX<span class="gold">MU</span><small>MU ONLINE · SEASON 6</small></span></a>
+<a class="brand" href="index.html" aria-label="AternixMU — úvod"><img class="brand-logo" src="assets/eclipse-logo.png" width="2160" height="720" alt="AternixMU · Season 6"></a>
 <nav aria-label="Hlavní navigace"><a href="index.html#projekt">O serveru</a><a href="ranking.aspx" aria-current="page">Žebříček</a><a href="register.aspx">Registrace</a><a href="account.aspx">Můj účet</a><a href="index.html#stazeni">Ke stažení</a><a href="index.html#komunita">Komunita</a></nav>
 <a class="nav-button" href="index.html#stazeni">Získat launcher <span aria-hidden="true">→</span></a>
 </header>

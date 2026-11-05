@@ -1,0 +1,36 @@
+/* AternixMU Eclipse: shared presentation only; account/server logic stays in ASPX. */
+:root{--bg:#080f15;--panel:#101d27;--gold:#8ce7f3;--text:#e3edf2;--muted:#9eafbd;--line:#a4d8ec24;color-scheme:dark}
+body{background:radial-gradient(ellipse at 90% 5%,#18344266,transparent 42%),var(--bg)}
+.header{min-height:100px;height:auto;padding:13px max(4vw,24px);gap:24px;background:#080f15f2;border-bottom-color:#a9dce83b}
+.brand{flex-shrink:0}.brand-logo{display:block;width:250px;height:auto;max-height:84px;object-fit:contain}
+.header nav{flex-wrap:wrap;justify-content:center;gap:12px 22px;color:#b6c7d3}.header nav a{padding:6px 0}
+.nav-button{color:var(--text);border-color:#88bbce66;background:linear-gradient(140deg,#243b48,#0a131b);white-space:nowrap}
+.nav-button:hover{border-color:var(--gold)}
+.primary{background:linear-gradient(125deg,#e2f0f5,#99b5c7 60%,#718e9f);border-color:#d4e7ee;color:#08141c;box-shadow:0 2px 0 #77e3f0,0 8px 30px #0004}
+.primary:hover{background:linear-gradient(125deg,#f4fcff,#bad9e5);box-shadow:0 2px 0 #b6f5ff,0 8px 28px #6ee6ff18}
+.secondary{background:#0c1822b3;border-color:#8bbac94d}.dot{background:var(--gold);box-shadow:0 0 14px #8ce7f380}
+.hero{min-height:800px;background:#080f15}.hero-art{background-image:url('assets/eclipse-scene.png');background-position:25% 35%;background-size:cover;right:24%}
+.hero:before{background:linear-gradient(90deg,#080f1500 15%,#080f1544 37%,#080f15ec 59%,#080f15 85%),linear-gradient(0deg,#080f15 1%,transparent 35%)}
+.hero-inner{margin-left:51%;width:49%;padding:105px 5vw 105px 30px;position:relative;z-index:1}
+.hero h1{font-size:clamp(45px,4.1vw,68px);line-height:1.12}.hero-copy{font-size:15px;line-height:1.9;color:#b8c8d4;max-width:490px}
+.hero .eyebrow{margin-bottom:30px}.hero-note{line-height:1.8;color:#a4b6c5}.hero-footer{position:relative;z-index:1;background:#080f1577}
+.hero-art:after{content:"";position:absolute;inset:-25%;pointer-events:none;opacity:.28;background-image:repeating-linear-gradient(108deg,transparent 0 41px,#c7f0ff66 42px,transparent 43px 85px);background-size:113px 230px;animation:eclipse-rain .85s linear infinite;mask-image:linear-gradient(90deg,#000 55%,transparent 85%)}
+.hero-art:before{content:"";position:absolute;inset:0;background:#bbebff;opacity:0;animation:eclipse-flash 19s linear infinite;pointer-events:none}
+@keyframes eclipse-rain{to{transform:translate(-65px,230px)}}
+.effects-hidden .hero-art:after,.effects-hidden .hero-art:before{animation-play-state:paused}
+@keyframes eclipse-flash{0%,43%,45%,100%{opacity:0}43.3%{opacity:.10}44.8%{opacity:0}}
+.effects-toggle{position:absolute;left:30px;top:26px;z-index:2;background:#08121bd9;border:1px solid #98cbd34d;color:#c0dbe5;padding:8px 13px;font:11px 'Segoe UI',sans-serif;cursor:pointer}
+.effects-toggle:focus-visible{outline:2px solid var(--gold);outline-offset:4px}.effects-paused .hero-art:after,.effects-paused .hero-art:before{animation:none;opacity:0}
+.section{padding-top:85px;padding-bottom:85px}.section .eyebrow{color:#7dd3e5}.facts{flex-wrap:wrap}.facts strong{color:#dcecf4}
+.pill{border-color:#8ce7f34d;color:#a7ecf8}.card{background:linear-gradient(140deg,#162b3a,#0b151f);border-color:#9cc4d333;box-shadow:0 15px 40px #0002}.card-number{color:#8ce7f366}
+.download-panel,.community-panel,.register-panel,.account-security,.ranking-message{background:linear-gradient(135deg,#132735,#0b161f);border-color:#8bbace40;box-shadow:0 24px 60px #0003}
+.download>div>p.download-warning{color:#b5cfdd;border-color:#82d4e8}.file-icon{border-color:#7dd3e54d}.download-panel code{color:#c0eaf4}
+.footer{border-top:1px solid var(--line)}.footer-brand{color:#bedde8}
+.register-main,.ranking-main,.logout-main{position:relative;isolation:isolate}
+body:has(.register-main):before,body:has(.ranking-main):before,body:has(.logout-main):before{content:"";position:fixed;inset:100px 0 0;z-index:-1;background:linear-gradient(90deg,#080f15db,#080f15f2),url('assets/eclipse-scene.png') left center/cover no-repeat;pointer-events:none}
+.register-panel label{color:#d6e7f0}.register-panel input:not([type=hidden]){background:#07131c;border-color:#99c4d23b}.register-panel input:-webkit-autofill{-webkit-text-fill-color:#e3edf2;box-shadow:0 0 0 1000px #142d3d inset}
+.ranking-scroll{background:#0a1721;border-color:#8bbace40}.ranking-table thead{background:#1a303e;color:#a4e5f1}.ranking-table tbody tr:hover{background:#8ce7f309}.ranking-table tbody tr:nth-child(even){background:#a8dcf104}
+@media(min-width:1600px){.hero{min-height:860px}.hero-inner{margin-left:51%;margin-right:0}.hero:before{background:linear-gradient(90deg,transparent 15%,#080f1533 37%,#080f15ee 59%,#080f15 85%),linear-gradient(0deg,#080f15,transparent 40%)}}
+@media(max-width:1100px){.header{flex-wrap:wrap;justify-content:space-between}.header nav{order:3;width:100%;justify-content:flex-start}.nav-button{display:inline-block}.hero-inner{margin-left:46%;width:54%;padding:90px 28px}.hero-art{right:0;background-position:23% center}.hero:before{background:linear-gradient(90deg,#080f1522,#080f1577 38%,#080f15ee 62%),linear-gradient(0deg,#080f15,transparent)}.hero h1{font-size:49px}}
+@media(max-width:650px){.header{padding:12px 20px;gap:12px;flex-direction:row;align-items:center}.brand-logo{width:205px;max-height:70px}.nav-button{display:none}.header nav{font-size:12px;gap:5px 18px;order:2}.hero{min-height:830px;justify-content:flex-end}.hero-art{inset:0;background-position:28% top;background-size:auto 600px;background-repeat:no-repeat}.hero:before{background:linear-gradient(0deg,#080f15 5%,#080f15f0 43%,#080f1522 84%)}.hero-inner{margin:0;width:100%;padding:340px 24px 40px}.hero h1{font-size:42px}.hero .eyebrow{margin-bottom:16px}.hero-copy{margin-top:20px;font-size:14px}.hero-footer{font-size:8px;padding:18px 24px;gap:16px}.effects-toggle{left:20px;top:18px}.hero-art:after{mask-image:linear-gradient(#000 25%,transparent 66%)}.section{padding:56px 24px}.brand{max-width:100%}.register-main,.ranking-main{padding-top:38px}.account-heading h1{font-size:42px}}
+@media(prefers-reduced-motion:reduce){.hero-art:after,.hero-art:before{animation:none;opacity:0}.effects-toggle{display:none}}
