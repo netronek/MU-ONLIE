@@ -420,8 +420,6 @@ namespace Aternix.Eclipse
             TextAt(g, T("NOVÁ ÉRA ZAČÍNÁ", "A NEW ERA BEGINS"), 36, FontStyle.Regular, Ink, new Rectangle(32, 468, 680, 54), "Georgia");
             using (Pen p = new Pen(Cyan)) g.DrawLine(p, 34, 533, 274, 533);
             TextAt(g, "EXP 300×   /   DROP 30 %", 18, FontStyle.Regular, Ink, new Rectangle(34, 541, 550, 30));
-            using (Pen p = new Pen(Color.FromArgb(100, 191, 215))) g.DrawRectangle(p, 34, 582, 218, 28);
-            TextAt(g, T("TESTOVACÍ PROVOZ", "TEST SERVER"), 13, FontStyle.Bold, Cyan, new Rectangle(48, 580, 200, 32));
             using (var panel = new LinearGradientBrush(new Rectangle(734, 108, 384, 516), Color.FromArgb(13, 23, 30), Color.FromArgb(6, 12, 17), 35)) g.FillRectangle(panel, 734, 108, 384, 516);
             TextAt(g, T("NASTAVENÍ HRY", "GAME SETTINGS"), 25, FontStyle.Regular, Ink, new Rectangle(766, 139, 330, 42), "Georgia");
             using (Pen p = new Pen(Cyan)) g.DrawLine(p, 768, 189, 915, 189);
