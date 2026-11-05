@@ -15,8 +15,9 @@ namespace AternixWeb
         public readonly int AccountId;
         public readonly string Login;
         public readonly DateTime ExpiresUtc;
-        public PlayerSession(int id, string login, DateTime expires)
-        { AccountId = id; Login = login; ExpiresUtc = expires; }
+        public readonly int CredentialVersion;
+        public PlayerSession(int id, string login, DateTime expires, int version)
+        { AccountId = id; Login = login; ExpiresUtc = expires; CredentialVersion = version; }
     }
 
     public static class WebAuth
@@ -25,6 +26,7 @@ namespace AternixWeb
         private const string CsrfCookie = "__Host-AternixWebCsrf";
         private const string SessionPrefix = "Aternix.Auth.Session.v1.";
         private static readonly object AttemptLock = new object();
+        private static readonly object CredentialLock = new object();
         private sealed class Attempts { public int Count; }
         public const string ConnectionString = "Data Source=lpc:localhost;Initial Catalog=MuOnlineS6;Integrated Security=True;Connect Timeout=5;Application Name=AternixWebAccount;";
 
@@ -94,8 +96,46 @@ namespace AternixWeb
                 return true;
             }
         }
+        private static string VersionKey(int id, string login)
+        { return "Aternix.Auth.CredentialVersion.v1." + id.ToString(CultureInfo.InvariantCulture) + ":" + login.ToUpperInvariant(); }
+        private static int CredentialVersion(int id, string login)
+        {
+            object version = HttpRuntime.Cache[VersionKey(id, login)];
+            return version == null ? 0 : (int)version;
+        }
+        private static void RevokeAccountSessions(PlayerSession session)
+        {
+            int next = CredentialVersion(session.AccountId, session.Login) + 1;
+            // Keep this marker longer than every existing 30-minute session.
+            HttpRuntime.Cache.Insert(VersionKey(session.AccountId, session.Login), next, null,
+                DateTime.UtcNow.AddHours(1), Cache.NoSlidingExpiration, CacheItemPriority.NotRemovable, null);
+        }
+        public static bool AllowPasswordAttempt(string address, PlayerSession session)
+        {
+            lock (AttemptLock)
+            {
+                string[] keys = { "Aternix.Password.Global.v1", "Aternix.Password.IP.v1." + address,
+                    "Aternix.Password.Account.v1." + VersionKey(session.AccountId, session.Login) };
+                int[] limits = { 100, 10, 5 };
+                for (int i = 0; i < keys.Length; i++)
+                {
+                    Attempts counter = HttpRuntime.Cache[keys[i]] as Attempts;
+                    if (counter == null)
+                    {
+                        counter = new Attempts();
+                        HttpRuntime.Cache.Insert(keys[i], counter, null, DateTime.UtcNow.AddMinutes(15),
+                            Cache.NoSlidingExpiration, CacheItemPriority.NotRemovable, null);
+                    }
+                    if (counter.Count >= limits[i]) return false;
+                    counter.Count++;
+                }
+                return true;
+            }
+        }
         public static PlayerSession Authenticate(string login, string password)
         {
+            lock (CredentialLock)
+            {
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             using (SqlCommand command = new SqlCommand("dbo.WebAuthenticate", connection))
             {
@@ -106,34 +146,80 @@ namespace AternixWeb
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     if (!reader.Read()) return null;
-                    return new PlayerSession(Convert.ToInt32(reader["AccountId"], CultureInfo.InvariantCulture),
-                        Convert.ToString(reader["LoginName"], CultureInfo.InvariantCulture), DateTime.UtcNow.AddMinutes(30));
+                    int id = Convert.ToInt32(reader["AccountId"], CultureInfo.InvariantCulture);
+                    string canonical = Convert.ToString(reader["LoginName"], CultureInfo.InvariantCulture);
+                    return new PlayerSession(id, canonical, DateTime.UtcNow.AddMinutes(30), CredentialVersion(id, canonical));
                 }
             }
+                    }
         }
         public static PlayerSession GetSession(HttpContext context)
         {
+            lock (CredentialLock)
+            {
             if (!context.Request.IsSecureConnection) return null;
             string token = ReadCookie(context, SessionCookie);
             if (!ValidToken(token)) return null;
             PlayerSession session = HttpRuntime.Cache[SessionPrefix + token] as PlayerSession;
-            if (session == null || session.ExpiresUtc <= DateTime.UtcNow) return null;
+            if (session == null || session.ExpiresUtc <= DateTime.UtcNow ||
+                session.CredentialVersion != CredentialVersion(session.AccountId, session.Login)) return null;
             return session;
+                    }
         }
         public static void SignIn(HttpContext context, PlayerSession session)
         {
+            lock (CredentialLock)
+            {
             if (!context.Request.IsSecureConnection) throw new InvalidOperationException("HTTPS required");
+            if (session.CredentialVersion != CredentialVersion(session.AccountId, session.Login))
+                throw new InvalidOperationException("Credentials changed; authenticate again");
             SignOut(context);
             string token = RandomToken();
             HttpRuntime.Cache.Insert(SessionPrefix + token, session, null, session.ExpiresUtc, Cache.NoSlidingExpiration);
             WriteCookie(context, SessionCookie, token, null);
             WriteCookie(context, CsrfCookie, RandomToken(), null);
+                    }
         }
         public static void SignOut(HttpContext context)
         {
             string token = ReadCookie(context, SessionCookie);
             if (ValidToken(token)) HttpRuntime.Cache.Remove(SessionPrefix + token);
             WriteCookie(context, SessionCookie, "", DateTime.UtcNow.AddDays(-1));
+        }
+        public static int ChangePassword(HttpContext context, PlayerSession session, string oldPassword, string newPassword)
+        {
+            lock (CredentialLock)
+            {
+                if (!Object.ReferenceEquals(GetSession(context), session)) return 3;
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(ConnectionString))
+                    using (SqlCommand command = new SqlCommand("dbo.WebChangePassword", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure; command.CommandTimeout = 5;
+                        command.Parameters.Add("@AccountId", SqlDbType.Int).Value = session.AccountId;
+                        command.Parameters.Add("@Login", SqlDbType.NVarChar, 64).Value = session.Login;
+                        command.Parameters.Add("@OldPassword", SqlDbType.NVarChar, 128).Value = oldPassword;
+                        command.Parameters.Add("@NewPassword", SqlDbType.NVarChar, 128).Value = newPassword;
+                        SqlParameter result = command.Parameters.Add("@Result", SqlDbType.Int);
+                        result.Direction = ParameterDirection.ReturnValue;
+                        connection.Open(); command.ExecuteNonQuery();
+                        int status = Convert.ToInt32(result.Value, CultureInfo.InvariantCulture);
+                        if (status == 0)
+                        {
+                            RevokeAccountSessions(session);
+                            SignOut(context);
+                            WriteCookie(context, CsrfCookie, RandomToken(), null);
+                        }
+                        return status;
+                    }
+                }
+                catch
+                {
+                    // A timeout may happen after SQL committed. Revoke sessions even when outcome is uncertain.
+                    RevokeAccountSessions(session); SignOut(context); throw;
+                }
+            }
         }
         public static DataTable LoadCharacters(PlayerSession session)
         {

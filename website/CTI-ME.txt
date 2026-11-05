@@ -64,7 +64,7 @@ IIS APPPOOL\AternixWebPool. Nepřidávejte práva db_owner/db_datareader
 ani přímá práva INSERT/SELECT na MEMB_INFO.
 JoinServer má MD5Encryption=0, DSN míří na localhost / MuOnlineS6.
 Hesla proto používají současný herní režim bez MD5, nikoli moderní webový hash.
-Přihlášení na web má samostatnou stránku login.aspx. Obnova nebo změna hesla zatím není implementovaná.
+Přihlášení na web má samostatnou stránku login.aspx. Změna hesla je připravená v change-password.aspx. Obnova zapomenutého hesla zatím není implementovaná.
 Login 4–10 ASCII písmen/číslic, heslo 8–10 tisknutelných ASCII znaků,
 kontaktní e-mail do 50 znaků. Bezpečnostní kód již není ve formuláři.
 Web generuje 7 náhodných číslic pomocí RandomNumberGenerator a rejection sampling.
@@ -157,3 +157,50 @@ Lokálně ověřený vzhled na mobilu/desktopu, prázdné a chybové stavy, esca
 názvů v HTML, maskování hesel, metoda POST odhlášení a statické podmínky
 přístupu, cookies, CSRF a SQL parametrů. Skutečná kompilace ASP.NET, přihlášení
 v SQL a izolace účtů čekají na test v uživatelově Windows prostředí.
+
+ZMĚNA HESLA – AKTUALIZACE 01
+Uživatel vytvořil dbo.WebChangePassword v databázi MuOnlineS6 a povolil pouze
+EXECUTE pro IIS APPPOOL\AternixWebPool. Procedura ověřuje AccountId/Login,
+současné heslo včetně velikosti písmen a délky a neblokovaný stav účtu.
+Mění pouze memb__pwd. Současné heslo může mít 1–10 ASCII znaků, nové 8–10
+bez mezer a diakritiky; musí se lišit. Není zde kontrola ConnectStat,
+protože uživatel výslovně povolil změnu i za běhu hry.
+Běžící herní spojení se neodpojuje. Nové heslo se použije při dalším přihlášení.
+
+INSTALACE
+Zálohujte C:\AternixWeb mimo web a rozbalte AternixMU_Web_password_01.zip
+přímo do C:\AternixWeb. Nahrazují se account.aspx, account.css,
+App_Code/AternixWebAuth.cs a přidává se change-password.aspx.
+Ponechte celou strukturu App_Code. Nová kompilace aplikace odhlásí webové relace.
+Potom se znovu přihlaste a v účtu klikněte na Změnit heslo.
+Není potřeba restartovat hru ani SQL Server.
+
+PODMÍNKY A OCHRANY
+Účet se vybírá výhradně ze serverové relace, nikoliv z adresy/formuláře.
+Vyžadují se současné heslo, dvakrát nové, HTTPS a CSRF token.
+Parametrizovaná procedura dostává AccountId/Login ze serverové identity.
+Limity: 5 pokusů na účet, 10 na IP a 100 celkem za 15 minut na aplikaci.
+Na úspěch se zvýší verze přihlašovacích údajů, staré webové relace jsou v této
+instanci zneplatněné. Ověřování loginu, přijetí nové relace a změna hesla
+sdílejí synchronizaci proti souběžnému přihlášení se starým heslem.
+Značka verze je držena nejméně hodinu, déle než životnost relace (30 minut).
+Při nejistém výsledku SQL (např. timeout po zápisu) se relace rovněž zneplatní.
+Nelze tak tvrdit, že heslo určitě zůstalo původní; stránka doporučí nové
+přihlášení. Žádná hesla se nevypisují, nevracejí v HTML ani nelogují.
+Mechanismus relací je určen pro současnou jednu instanci webové aplikace;
+při přechodu na více serverů/pracovních procesů je nutné sdílené úložiště relací.
+
+AKCEPTAČNÍ TEST
+1. GET change-password.aspx bez přihlášení přesměruje na login.
+2. Na testovacím účtu ověřte odmítnutí nesprávného současného hesla,
+   neshodných nových hesel a stejného nového hesla jako původního.
+3. Změňte heslo testovacího účtu; žádné heslo neposílejte do chatu.
+4. Po změně se přihlaste novým heslem, staré musí být odmítnuto.
+5. Relace stejného účtu otevřená v jiném/anonymním okně už nesmí otevřít účet
+   bez nového přihlášení. Relace jiného účtu zůstává nezměněná.
+6. Ověřte další přihlášení do hry novým heslem.
+7. Změnu během hraní ověřte jen na testovacím účtu.
+Lokálně ověřena syntaxe všech C# částí parserem (nenahrazuje kompilaci),
+vzhled, maskování vstupů, chybové/prázdné/úspěšné stavy a navigace v Chromium
+na mobilu i desktopu. Skutečnou kompilaci ASP.NET a změnu hesla v SQL
+ověřuje uživatel na Windows serveru; z tohoto prostředí nebyla provedena.
