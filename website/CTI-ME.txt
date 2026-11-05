@@ -1,10 +1,10 @@
 ﻿ATERNIXMU – PRVNÍ TESTOVACÍ WEB
 
-Statický web pro IIS na Windows Server 2022. Nevyžaduje PHP ani SQL.
+Web pro IIS na Windows Server 2022. Úvodní stránka je statická; ranking.aspx vyžaduje ASP.NET 4.x a přístup k SQL pohledu dbo.WebRanking.
 Obsahuje: testovací úvodní stránku, informace o projektu, testování,
 stažení launcheru, připravenou sekci pro Discord.
 Zveřejněné parametry: EXP 300×, drop 30 %. Pravidla a termín spuštění zatím nejsou zveřejněny.
-Discord: https://discord.gg/tMENCSJJZE. Registrace ani hráčský účet nejsou připojené.
+Discord: https://discord.gg/tMENCSJJZE. Registrace ani hráčský účet nejsou připojené. Žebříček čte pouze veřejné údaje z pohledu dbo.WebRanking.
 Stránka neukazuje živý počet hráčů ani neověřený stav herního serveru.
 
 INSTALACE
@@ -34,3 +34,24 @@ OVĚŘENÍ
 Zobrazení v Chromium při 1440x1000 a 390x844: žádné vodorovné přetékání,
 obrázky načtené, navigace do sekcí funkční, bez chyb JavaScriptu.
 Ověřeny lokální odkazy. Nasazení na Windows a veřejné HTTPS ještě není provedeno.
+
+ŽEBŘÍČEK – DOPLNĚNÍ
+ranking.aspx vyžaduje ASP.NET 4.8 / IIS Web-Asp-Net45 a Web-Net-Ext45.
+Web Aternix-Web má používat ApplicationPoolIdentity ve vlastním poolu AternixWebPool.
+SQL Server je lokální výchozí instance. Databáze: MuOnlineS6.
+Identita IIS APPPOOL\AternixWebPool má mít pouze SELECT na dbo.WebRanking,
+nikoliv členství db_datareader, db_owner nebo práva k herním tabulkám.
+Pohled uživatel vytvořil a připojení z IIS otestoval přes dočasnou stránku db-test.aspx.
+Po instalaci žebříčku db-test.aspx odstraňte.
+Žebříček řadí podle master resetů, resetů, levelu a názvu; maximálně 100 postav.
+Pohled filtruje CtlCode = 0. Aplikační cache má platnost 30 sekund.
+Chyba připojení vrací HTTP 503 a obecnou zprávu, bez detailů SQL.
+Ověřeny statické podmínky dotazu a vzhled se syntetickými daty.
+Kompilace ASP.NET a skutečné řádky SQL se ověřují až na Windows serveru.
+
+INSTALACE MALÉ AKTUALIZACE ŽEBŘÍČKU
+Zálohujte C:\AternixWeb mimo veřejnou složku webu.
+ZIP AternixMU_Web_ranking_01.zip obsahuje index.html, ranking.aspx a ranking.css.
+Rozbalte jej přímo do C:\AternixWeb. style.css a assets zůstávají potřebné.
+Otevřete https://aternixmu.eu/ranking.aspx a ověřte výsledek.
+Není potřeba restart hry ani SQL Serveru.
