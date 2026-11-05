@@ -4,7 +4,7 @@ Web pro IIS na Windows Server 2022. Úvodní stránka je statická; ranking.aspx
 Obsahuje: testovací úvodní stránku, informace o projektu, testování,
 stažení launcheru, připravenou sekci pro Discord.
 Zveřejněné parametry: EXP 300×, drop 30 %. Pravidla a termín spuštění zatím nejsou zveřejněny.
-Discord: https://discord.gg/tMENCSJJZE. Registrace je připravená v register.aspx a vyžaduje dbo.WebRegisterAccount. Hráčské přihlášení a správa účtu zatím nejsou připojené. Žebříček čte pouze veřejné údaje z pohledu dbo.WebRanking.
+Discord: https://discord.gg/tMENCSJJZE. Registrace je připravená v register.aspx a vyžaduje dbo.WebRegisterAccount. Přihlášení, zobrazení vlastních postav a odhlášení jsou připravené v login.aspx, account.aspx a logout.aspx; skutečný průchod se ověřuje na Windows. Žebříček čte pouze veřejné údaje z pohledu dbo.WebRanking.
 Stránka neukazuje živý počet hráčů ani neověřený stav herního serveru.
 
 INSTALACE
@@ -64,7 +64,7 @@ IIS APPPOOL\AternixWebPool. Nepřidávejte práva db_owner/db_datareader
 ani přímá práva INSERT/SELECT na MEMB_INFO.
 JoinServer má MD5Encryption=0, DSN míří na localhost / MuOnlineS6.
 Hesla proto používají současný herní režim bez MD5, nikoli moderní webový hash.
-Formulář neposkytuje přihlášení do webového účtu ani obnovu hesla.
+Přihlášení na web má samostatnou stránku login.aspx. Obnova nebo změna hesla zatím není implementovaná.
 Login 4–10 ASCII písmen/číslic, heslo 8–10 tisknutelných ASCII znaků,
 kontaktní e-mail do 50 znaků. Bezpečnostní kód již není ve formuláři.
 Web generuje 7 náhodných číslic pomocí RandomNumberGenerator a rejection sampling.
@@ -107,3 +107,53 @@ Obnovte https://aternixmu.eu/register.aspx. Pole ani zmínka o kódu již nejsou
 ve formuláři nebo potvrzení úspěchu. Kód se generuje jen na serveru, nikdy
 se neposílá jako skrytý vstup. Případná hodnota securityCode podstrčená
 v požadavku se ignoruje. Účty vytvořené dříve se nemění.
+
+HRÁČSKÝ ÚČET – AKTUALIZACE 01
+Předpoklady: již fungující žebříček a registrace, lokální SQL Server,
+MuOnlineS6, AternixWebPool s ApplicationPoolIdentity.
+Uživatel vytvořil procedury dbo.WebAuthenticate a dbo.WebGetAccountCharacters
+v SSMS a přidělil pouze EXECUTE identitě IIS APPPOOL\AternixWebPool.
+WebAuthenticate ověřuje herní heslo v SQL, vrací pouze AccountId/LoginName.
+WebGetAccountCharacters ověřuje účet a vrací vlastní postavy v druhé sadě výsledků.
+Nevracejí se hesla, e-maily, inventáře ani bezpečnostní kódy.
+
+INSTALACE
+1. Zálohujte celý C:\AternixWeb mimo veřejnou složku webu.
+2. Rozbalte AternixMU_Web_account_01.zip přímo do C:\AternixWeb.
+   Zachovejte podsložku App_Code s AternixWebAuth.cs. Soubory nepřesouvejte
+   do Data klienta ani do AternixUpdates.
+3. Balíček obsahuje login.aspx, account.aspx, logout.aspx, account.css,
+   App_Code/AternixWebAuth.cs a upravené index.html, ranking.aspx, register.aspx.
+   Existující style.css, register.css, ranking.css a assets zůstávají potřebné.
+4. Přidání nebo změna App_Code způsobí rekompilaci webové aplikace.
+   Existující webová přihlášení a krátkodobé limity se při ní mohou zrušit.
+   Nevyžaduje restart herního ani SQL serveru a nemění klientské soubory.
+5. Otevřete https://aternixmu.eu/login.aspx a otestujte svůj nový testovací účet.
+   Heslo nikam neposílejte. Všechny údaje zadávejte pouze přes HTTPS.
+
+ZPŮSOB PŘIHLÁŠENÍ
+Náhodná 256bitová __Host-AternixSession cookie: HttpOnly, Secure, SameSite Strict,
+bez Domain, Path=/. Cookie je jen náhodný token, neobsahuje login, heslo ani ID.
+Identita a absolutní platnost nejvýše 30 minut jsou v cache serverové aplikace.
+Při přihlášení se starý token zruší a vytvoří nový; odhlášení přes CSRF chráněný
+POST odstraní i serverový záznam. Přihlášení se mohou zrušit při recyklaci aplikace.
+Account.aspx bere identitu pouze ze serverového přihlášení a ověřuje stav účtu
+v SQL při každém načtení, nikoliv z parametrů adresy nebo formuláře.
+Soukromé stránky a přihlašovací formulář mají zákaz ukládání do HTTP cache.
+Omezení pokusů: 10/IP za 15 minut a celkem 100 za 15 minut na aplikaci;
+resetuje se při restartu aplikace. Hlavička X-Forwarded-For není důvěryhodný zdroj IP.
+Přihlášení na aternixmu.eu a www.aternixmu.eu jsou záměrně oddělená cookies
+pro jednotlivé hostitele. Používejte konzistentně jednu adresu.
+Všechny nové ASPX mají UTF-8 BOM a ResponseEncoding bez konfliktní CodePage.
+
+TESTY PO NASAZENÍ
+- Nesprávné heslo: obecná chyba, bez přihlášení.
+- Správné heslo: account.aspx ukáže jen vlastní postavy nebo prázdný stav.
+- Parametry jako ?AccountId=... nesmějí změnit vybraný účet.
+- Odhlásit se: návrat na přihlášení; account.aspx bez přihlášení nesmí vrátit data.
+- Jiný účet: pouze jeho postavy. Testovat můžete v anonymním okně.
+- Veřejný žebříček i registrace zůstávají funkční.
+Lokálně ověřený vzhled na mobilu/desktopu, prázdné a chybové stavy, escapování
+názvů v HTML, maskování hesel, metoda POST odhlášení a statické podmínky
+přístupu, cookies, CSRF a SQL parametrů. Skutečná kompilace ASP.NET, přihlášení
+v SQL a izolace účtů čekají na test v uživatelově Windows prostředí.
