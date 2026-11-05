@@ -4,7 +4,7 @@ Web pro IIS na Windows Server 2022. Úvodní stránka je statická; ranking.aspx
 Obsahuje: testovací úvodní stránku, informace o projektu, testování,
 stažení launcheru, připravenou sekci pro Discord.
 Zveřejněné parametry: EXP 300×, drop 30 %. Pravidla a termín spuštění zatím nejsou zveřejněny.
-Discord: https://discord.gg/tMENCSJJZE. Registrace ani hráčský účet nejsou připojené. Žebříček čte pouze veřejné údaje z pohledu dbo.WebRanking.
+Discord: https://discord.gg/tMENCSJJZE. Registrace je připravená v register.aspx a vyžaduje dbo.WebRegisterAccount. Hráčské přihlášení a správa účtu zatím nejsou připojené. Žebříček čte pouze veřejné údaje z pohledu dbo.WebRanking.
 Stránka neukazuje živý počet hráčů ani neověřený stav herního serveru.
 
 INSTALACE
@@ -55,3 +55,45 @@ ZIP AternixMU_Web_ranking_01.zip obsahuje index.html, ranking.aspx a ranking.css
 Rozbalte jej přímo do C:\AternixWeb. style.css a assets zůstávají potřebné.
 Otevřete https://aternixmu.eu/ranking.aspx a ověřte výsledek.
 Není potřeba restart hry ani SQL Serveru.
+
+REGISTRACE – TESTOVACÍ VERZE
+Vyžaduje ASP.NET 4.8, stejné lokální SQL připojení jako žebříček a existující
+proceduru MuOnlineS6.dbo.WebRegisterAccount. Uživatel ji vytvořil v SSMS
+podle ověřené struktury tabulky; procedura má povolené EXECUTE pro
+IIS APPPOOL\AternixWebPool. Nepřidávejte práva db_owner/db_datareader
+ani přímá práva INSERT/SELECT na MEMB_INFO.
+JoinServer má MD5Encryption=0, DSN míří na localhost / MuOnlineS6.
+Hesla proto používají současný herní režim bez MD5, nikoli moderní webový hash.
+Formulář neposkytuje přihlášení do webového účtu ani obnovu hesla.
+Login 4–10 ASCII písmen/číslic, heslo 8–10 tisknutelných ASCII znaků,
+kontaktní e-mail do 50 znaků a vlastní 7místný číselný bezpečnostní kód.
+Procedura uloží kód do posledních 7 znaků 18znakového sno__numb.
+Ověření kódu v herních bezpečnostních operacích je součástí testu.
+Kontaktní e-mail se ukládá, ale potvrzovací e-mail se zatím neposílá.
+HTTPS je povinné. Formulář má náhodný CSRF token v HttpOnly Secure
+__Host-cookie (SameSite Strict), kontrolu vstupů na webu i v proceduře,
+parametrizované SQL a základní limit 10 pokusů/IP za 15 minut,
+celkem 100 pokusů za 15 minut v jedné instanci aplikace.
+Limity se resetují při restartu aplikace; nejde o externí ochranu proti botům.
+Hesla a bezpečnostní kódy se nevypisují ani nelogují v kódu stránky.
+
+INSTALACE REGISTRACE
+Zálohujte web mimo C:\AternixWeb. Rozbalte AternixMU_Web_registration_01.zip
+přímo do C:\AternixWeb; obsahuje register.aspx, register.css, style.css,
+index.html a ranking.aspx. Assets a ranking.css zůstávají potřebné.
+Otevřete https://aternixmu.eu/register.aspx. ASPX soubory mají UTF-8 BOM
+plus ResponseEncoding, nikoli současně CodePage a ResponseEncoding.
+Nezapínejte veřejný výpis podrobných ASP.NET chyb.
+Pokud je přítomný db-test.aspx, po dokončení testování jej odstraňte.
+
+AKCEPTAČNÍ TEST NA WINDOWS
+1. Formulář se zobrazí s českými texty přes HTTPS.
+2. Založte jeden nový testovací účet s nepoužitým heslem a kódem;
+   heslo ani kód neposílejte do chatu.
+3. Ověřte přihlášení ve hře. Potom ověřte bezpečnostní kód na nepotřebné
+   testovací postavě, ne na cenné postavě nebo guildě.
+4. Stejný login musí být odmítnut bez vytvoření druhého účtu.
+5. Žebříček a úvodní stránka dál fungují.
+Lokálně otestován vzhled a formulářové validační stavy na desktopu/mobilu
+se syntetickými daty a staticky ověřeny parametry, limity a kódování.
+Skutečné spuštění ASP.NET a SQL registrace se ověřuje až na Windows.

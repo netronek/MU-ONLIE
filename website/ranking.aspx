@@ -96,7 +96,7 @@ protected string Number(object value)
 <a class="skip" href="#obsah">Přejít na obsah</a>
 <header class="header">
 <a class="brand" href="index.html" aria-label="AternixMU — úvod"><span class="brand-symbol" aria-hidden="true">A</span><span>ATERNIX<span class="gold">MU</span><small>MU ONLINE · SEASON 6</small></span></a>
-<nav aria-label="Hlavní navigace"><a href="index.html#projekt">O serveru</a><a href="ranking.aspx" aria-current="page">Žebříček</a><a href="index.html#stazeni">Ke stažení</a><a href="index.html#komunita">Komunita</a></nav>
+<nav aria-label="Hlavní navigace"><a href="index.html#projekt">O serveru</a><a href="ranking.aspx" aria-current="page">Žebříček</a><a href="register.aspx">Registrace</a><a href="index.html#stazeni">Ke stažení</a><a href="index.html#komunita">Komunita</a></nav>
 <a class="nav-button" href="index.html#stazeni">Získat launcher <span aria-hidden="true">→</span></a>
 </header>
 <main id="obsah" class="ranking-main">
