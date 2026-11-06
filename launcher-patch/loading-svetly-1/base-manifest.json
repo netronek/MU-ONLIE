@@ -1,0 +1,16 @@
+{
+    "files":  [
+                  {
+                      "path":  "aternix-update-test.txt",
+                      "sha256":  "285176268d029f54bb0066a68c99754a60043f763ac5a98e481c5c7a924a8c08",
+                      "size":  32
+                  },
+                  {
+                      "path":  "Data/Local/Eng/movereq_eng.bmd",
+                      "sha256":  "7e2fc9e65ede3e3691096ddb4735638dc11dae9a2aa0d8e302850883751fd53c",
+                      "size":  3364
+                  }
+              ],
+    "version":  "maps-1",
+    "ready":  true
+}
