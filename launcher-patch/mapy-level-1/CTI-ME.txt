@@ -1,0 +1,20 @@
+﻿PATCH mapy-level-1
+
+Obsahuje presnou kopii dodaneho main.premium. Herni funkcnost musi potvrdit test klienta.
+Zachovava 8 zaznamu manifestu loading-svetly-1, pridava main.premium (9 souboru).
+Predchozi payloady nejsou soucasti balicku a musi zustat na serveru.
+
+1. Rozbalit do C:\Tools\AternixMapyPatch01 (skripty primo v teto slozce).
+2. Ve Windows PowerShell spustenem jako spravce spustit Pripravit.ps1.
+   Zalohuje manifest, web.config a pripadny predchozi main.premium mimo IIS.
+   Doplni MIME .premium a soubor files\main.premium. Aktivni manifest nezmeni.
+3. Aktivovat.ps1 spustit az pri pripravenosti vydat patch.
+   Overi vsech 9 souboru pres HTTPS a teprve pote atomicky nahradi manifest.
+4. Hrac zavre hru, spusti aktualizaci launcheru a znovu spusti hru.
+   Test: pripojeni, mapy po resetu, druha aktualizace = 0 zmenenych souboru.
+
+Rollback: obnoveni puvodniho manifestu zastavi distribuci, nevrati soubor hracum,
+kteri uz aktualizovali. Pro vraceni klientu je nutny dalsi patch s puvodnim
+main.premium a jeho velikosti a SHA256. web.config lze obnovit ze zalohy.
+
+Nemenit Main.dll, main.exe ani herni konfiguraci serveru.
