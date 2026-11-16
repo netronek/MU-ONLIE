@@ -1,0 +1,21 @@
+﻿PATCH rank-logo-1
+
+Zachovava 9 cest posledniho patche mapy-level-1. Meni pouze main.premium.
+Dodany soubor obsahuje RankUserType=2, CustomCharacterDetailsType=2
+a zachovava MoveCheckLevelMasterLevel=0 i pripojovaci profil.
+Herni zobrazeni je nutne overit v testovacim klientovi.
+
+1. Rozbalit do C:\Tools\AternixRankPatch01.
+2. Windows PowerShell jako spravce: spustit Pripravit.ps1.
+   Zalohuje soubory, pripravi payload pod docasnym nazvem; aktivni main.premium
+   i manifest zatim zustanou puvodni. Priprava nemeni existujici klienty.
+3. Aktivovat.ps1 overi vsech 9 payloadu pres HTTPS (novy main z docasne URL),
+   pak atomicky vymeni main.premium a manifest. Pri chybe vymeny manifestu
+   vrati puvodni main.premium. Neprovadet dalsi soubezne upravy patche.
+4. Hrac vypne hru, aktualizuje, spusti znovu a overi pripojeni, rank i mapy.
+   Dalsi aktualizace ma hlasit 0 zmen.
+
+Zaloha: C:\Tools\AternixPatchBackups\rank-*
+Rollback pred aktualizaci klientu: obnovit main.premium i manifest ze stejne
+zalohy. Po aktualizaci klientu je nutny novy opravny patch s puvodnim payloadem.
+Neobnovovat pouze manifest bez odpovidajiciho payloadu.
