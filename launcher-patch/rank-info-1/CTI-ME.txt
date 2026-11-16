@@ -1,0 +1,33 @@
+﻿PATCH rank-info-1 - OVERENY KLIENTSKY TEST 03
+
+Obsahuje presne main.premium z AternixMU_Rank_Test_03.zip, ktery uzivatel
+otestoval ve hre: pripojeni funguje, logo a zakladni staty skryte,
+level/resety/master resety/kills/deaths/account/trida zachovany.
+Proti funkcnimu mapy-level-1 jsou zmeneny pouze bajty 592 a 1500
+(RankUserType=3, CustomCharacterDetailsType=3). Oprava map zachovana.
+Manifest stale obsahuje 9 cest; osm ostatnich zaznamu zustava beze zmeny.
+
+PRIPRAVA NA SERVERU
+1. Rozbalit do nove slozky C:\Tools\AternixRankInfoPatch01.
+2. Otevrit Windows PowerShell jako spravce.
+3. Unblock-File a spustit Pripravit.ps1 z teto nove slozky.
+   Nejdrive overi puvodni manifest mapy-level-1, vytvori zalohy mimo IIS.
+   Novy soubor pripravi pod docasnym nazvem. Aktivni soubor ani manifest nemeni.
+4. Aktivovat.ps1 spustit ze stejne slozky az po uspesne priprave.
+   Proveri vsech 9 souboru pres HTTPS. Novy main stahuje z docasne URL.
+   Overi puvodni payload, pak atomicky nahradi main.premium a manifest.
+   Pri chybe vymeny manifestu obnovi predchozi main.premium.
+
+TEST HRACE
+Vypnout hru, aktualizovat launcher, spustit hru, overit pripojeni a panel.
+Druha aktualizace ma zmenit 0 souboru.
+
+VYBER POSTAV
+Skryti hornich odznaku resi serverova volba CustomRankUserSwitchCharacter=0,
+kterou uz uzivatel zmenil a overil. Tento balik serverovy Custom.dat nemeni.
+
+NAVRAT
+Zalohy jsou v C:\Tools\AternixPatchBackups\rank-*.
+Obnovit main.premium i manifest ze STEJNE zalohy.
+Obnova pouze manifestu by vedla k neshode kontrolniho souctu.
+Aktualizovani hraci pak znovu aktualizuji launcherem a dostanou puvodni soubor.
