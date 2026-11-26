@@ -1,0 +1,488 @@
+{
+  "items": [
+    {
+      "section": 0,
+      "type": 28,
+      "index": 28,
+      "name": "Rune Bastard Sword",
+      "profiles": [
+        33,
+        12,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 5,
+      "type": 30,
+      "index": 2590,
+      "name": "Deadly Staff",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 5,
+      "type": 31,
+      "index": 2591,
+      "name": "Inberial Staff",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 0,
+      "type": 27,
+      "index": 27,
+      "name": "Sword Breaker",
+      "profiles": [
+        33,
+        12,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 0,
+      "type": 26,
+      "index": 26,
+      "name": "Flameberge",
+      "profiles": [
+        33,
+        12,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 2,
+      "type": 17,
+      "index": 1041,
+      "name": "Absolute Scepter",
+      "profiles": [
+        33,
+        12,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 4,
+      "type": 23,
+      "index": 2071,
+      "name": "Dark Stinger",
+      "profiles": [
+        33,
+        12,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 5,
+      "type": 32,
+      "index": 2592,
+      "name": "Merlin Staff",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 7,
+      "type": 51,
+      "index": 3635,
+      "name": "Royal Mask",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 7,
+      "type": 49,
+      "index": 3633,
+      "name": "Seraphim Helm",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 7,
+      "type": 45,
+      "index": 3629,
+      "name": "Titan Helm",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 7,
+      "type": 52,
+      "index": 3636,
+      "name": "Hades Helm",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 8,
+      "type": 51,
+      "index": 4147,
+      "name": "Royal Armor",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 8,
+      "type": 47,
+      "index": 4143,
+      "name": "Phantom Armor",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 8,
+      "type": 49,
+      "index": 4145,
+      "name": "Seraphim Armor",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 8,
+      "type": 45,
+      "index": 4141,
+      "name": "Titan Armor",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 8,
+      "type": 52,
+      "index": 4148,
+      "name": "Hades Armor",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 9,
+      "type": 51,
+      "index": 4659,
+      "name": "Royal Pants",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 9,
+      "type": 47,
+      "index": 4655,
+      "name": "Phantom  Pants",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 9,
+      "type": 49,
+      "index": 4657,
+      "name": "Seraphim Pants",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 9,
+      "type": 45,
+      "index": 4653,
+      "name": "Titan  Pants",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 9,
+      "type": 52,
+      "index": 4660,
+      "name": "Hades Pants",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 10,
+      "type": 51,
+      "index": 5171,
+      "name": "Royal Gloves",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 10,
+      "type": 47,
+      "index": 5167,
+      "name": "Phantom  Gloves",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 10,
+      "type": 49,
+      "index": 5169,
+      "name": "Seraphim Gloves",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 10,
+      "type": 45,
+      "index": 5165,
+      "name": "Titan  Gloves",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 10,
+      "type": 52,
+      "index": 5172,
+      "name": "Hades Gloves",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 11,
+      "type": 51,
+      "index": 5683,
+      "name": "Royal Boots",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 11,
+      "type": 47,
+      "index": 5679,
+      "name": "Phantom Boots",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 11,
+      "type": 49,
+      "index": 5681,
+      "name": "Seraphim Boots",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 11,
+      "type": 45,
+      "index": 5677,
+      "name": "Titan Boots",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    },
+    {
+      "section": 11,
+      "type": 52,
+      "index": 5684,
+      "name": "Hades Boots",
+      "profiles": [
+        33,
+        11,
+        13,
+        11,
+        11,
+        11,
+        18
+      ]
+    }
+  ],
+  "drop_groups": 3,
+  "runtime_tested": false,
+  "original_sha256": "2ceefbe7ecbd2d7383ebefac24d4c591478c522665f808b1f7542ef071bf8c06",
+  "new_sha256": "31108d32a893370a51cae0c9324618cdf6cc4aa0b8d0caafafd993593cab4e8f"
+}

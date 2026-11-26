@@ -1,0 +1,57 @@
+// Selupan - Advanced ItemBag, socket equipment only.
+// Three guaranteed ground-drop groups (indices 0,1,2), same item pool.
+// Option0=33: +3/+4/+5. Option1=12: skill; 11: no skill.
+// Option2=13: luck 50%. Option3=11: no additional JoL option.
+// Option4=11: no excellent. Option5=11: no ancient.
+// Option6=18: 1/2/3 sockets, weights 3334/3333/3333.
+// Existing ItemOptionRate profiles are referenced, never modified.
+
+3
+//Index DropRate DropInventory
+0       10000    0
+1       10000    0
+2       10000    0
+end
+
+4
+//Index Section SectionRate MoneyAmount OptionValue DW DK FE MG DL SU RF
+0       5       100         0           0           1  1  1  1  1  1  1
+1       5       100         0           0           1  1  1  1  1  1  1
+2       5       100         0           0           1  1  1  1  1  1  1
+end
+
+5
+//Index Level Grade Option0 Option1 Option2 Option3 Option4 Option5 Option6 Duration Comment
+28    *     0     33      12     13      11      11      11      18      0        // Rune Bastard Sword
+2590  *     0     33      11     13      11      11      11      18      0        // Deadly Staff
+2591  *     0     33      11     13      11      11      11      18      0        // Inberial Staff
+27    *     0     33      12     13      11      11      11      18      0        // Sword Breaker
+26    *     0     33      12     13      11      11      11      18      0        // Flameberge
+1041  *     0     33      12     13      11      11      11      18      0        // Absolute Scepter
+2071  *     0     33      12     13      11      11      11      18      0        // Dark Stinger
+2592  *     0     33      11     13      11      11      11      18      0        // Merlin Staff
+3635  *     0     33      11     13      11      11      11      18      0        // Royal Mask
+3633  *     0     33      11     13      11      11      11      18      0        // Seraphim Helm
+3629  *     0     33      11     13      11      11      11      18      0        // Titan Helm
+3636  *     0     33      11     13      11      11      11      18      0        // Hades Helm
+4147  *     0     33      11     13      11      11      11      18      0        // Royal Armor
+4143  *     0     33      11     13      11      11      11      18      0        // Phantom Armor
+4145  *     0     33      11     13      11      11      11      18      0        // Seraphim Armor
+4141  *     0     33      11     13      11      11      11      18      0        // Titan Armor
+4148  *     0     33      11     13      11      11      11      18      0        // Hades Armor
+4659  *     0     33      11     13      11      11      11      18      0        // Royal Pants
+4655  *     0     33      11     13      11      11      11      18      0        // Phantom  Pants
+4657  *     0     33      11     13      11      11      11      18      0        // Seraphim Pants
+4653  *     0     33      11     13      11      11      11      18      0        // Titan  Pants
+4660  *     0     33      11     13      11      11      11      18      0        // Hades Pants
+5171  *     0     33      11     13      11      11      11      18      0        // Royal Gloves
+5167  *     0     33      11     13      11      11      11      18      0        // Phantom  Gloves
+5169  *     0     33      11     13      11      11      11      18      0        // Seraphim Gloves
+5165  *     0     33      11     13      11      11      11      18      0        // Titan  Gloves
+5172  *     0     33      11     13      11      11      11      18      0        // Hades Gloves
+5683  *     0     33      11     13      11      11      11      18      0        // Royal Boots
+5679  *     0     33      11     13      11      11      11      18      0        // Phantom Boots
+5681  *     0     33      11     13      11      11      11      18      0        // Seraphim Boots
+5677  *     0     33      11     13      11      11      11      18      0        // Titan Boots
+5684  *     0     33      11     13      11      11      11      18      0        // Hades Boots
+end

@@ -1,0 +1,28 @@
+﻿SELUPAN - NAVRH DROP SOUBORU
+
+Obsah: 8 socket zbrani + 24 casti setu Royal, Phantom, Seraphim, Titan, Hades.
+Freya nahrazena Merlin Staffem. Phantom nema helmu.
+3 nahodne itemy celkem za zabiti (zbrane i brneni).
++3 az +5; Luck 50 %; 1 az 3 prazdne sockety.
+Skill jen na zbranich, ktere ho dle dodaneho Item.txt podporuji.
+Bez Excellent/Ancient opci a bez pridane JoL opce.
+
+Jde o Advanced ItemBag (sekce 3/4/5), stejny typ jako zaslany Box of Kundun 5.
+Tri drop skupiny pouzivaji stejny seznam itemu.
+ItemOptionRate.txt ani Item.txt nenahrazovat, pouzivaji se jejich existujici profily.
+
+INSTALACE JEN NA SERVERU, NE PATCH LAUNCHERU
+1. Zalohovat skutecny aktivni 067 - Selupan.txt mimo nacitanou ItemBag slozku.
+2. Nahradit pouze tento soubor. ORIGINAL soubor patri mimo ItemBag slozku.
+3. Nacist ItemBag konfiguraci v GameServeru, nebo restart pri udrzbe.
+4. Overit v logu absenci chyby parsovani a provest test zabiti Selupana.
+5. Overit presne 3 itemy, spravne sockety a jejich prazdnost, level a opce.
+
+OVERENI
+Overeny indexy a nazvy vsech 32 itemu dle dodaneho Item.txt, moznost dropu,
+existence referencovanych profilu, soucty jejich vah a struktura vystupu.
+Skutecne vykonani tri skupin a sockety musi potvrdit test na vasem GameServeru;
+zde nebylo mozne server spustit. Pred ostrym nasazenim je test nutny.
+Pri chybe vratit original a znovu nacist ItemBag.
+
+Nemenit globalni drop profily: pouzivaji je take jine bagy.
