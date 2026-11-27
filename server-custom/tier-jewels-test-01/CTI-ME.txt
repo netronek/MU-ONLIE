@@ -1,0 +1,96 @@
+ATERNIX - TIER JEWELS - LOCAL TEST 01
+==================================
+Tento balik neni launcher patch pro hrace. Neobsahuje zadny EXE ani DLL.
+
+HOTOVE PODKLADY
+- Presne seznamy podle aktualnich Box of Kundun +1 az +5 a SocketItemType.txt.
+- Sety: B=65 casti, A=38, S=110, X=43.
+- Zbrane: B=53, A=22, S=24, X=9. RF bojove rukavice jsou zbrane.
+- Wings: 7 itemu treti generace, vcetne prislusnych plastu DL/RF.
+- Book of Neil (2582) je v boxu +2 i +3: prirazena pouze vyssimu A.
+- Stity nejsou zarazene. Ceny ani XShop nebyly zmeneny.
+
+KAMENY (vsechny level 0)
+7421 = 14,253 = Jewel of Excellent B
+7422 = 14,254 = Jewel of Excellent A
+7423 = 14,255 = Jewel of Excellent S
+7424 = 14,256 = Jewel of Excellent X
+7425 = 14,257 = Jewel of Excellent Wings
+7426 = 14,258 = Jewel of Excellent Weapon B
+7427 = 14,259 = Jewel of Excellent Weapon A
+7429 = 14,261 = Jewel of Excellent Weapon S
+7430 = 14,262 = Jewel of Excellent Weapon X
+Index 7428 preskakujeme: uz je registrovany puvodnim souborem.
+
+PRAVIDLA
+Setove a zbranove kameny: cil musi mit 1 az 5 EX opci; pridani jedne nahodne
+chybejici EX opce zajistuje puvodni nativni system CustomJewel. Uspech 100 %.
+Lua pouze rozhoduje povolit/odmitnout; nic nemaze, nevytvari a nemeneni meny.
+Cizi tier/kategorie, plny item nebo neplatny cil: odmitnuti navratem 1.
+Jine puvodni jewely se predavaji beze zmeny puvodnimu serveru.
+Puvodni 7416 zustava povoleny jen pro aktualni A (box +3), stejne jako
+predchozi testovane A-only reseni. Pred prodejem novych kamenu je potreba
+rozhodnout o jeho cene/dostupnosti, aby neobchazel cenu noveho A kamene.
+
+WINGS - VYZADUJE SAMOSTATNY TEST
+Podminky testu: pouze treti generace, 0 az 3 EX opce, ocekavana maska 0..15.
+Neni dosud overeno, ze Louisuv nativni CustomJewel zvoli u kridel pouze
+spravne specialni opce a zachova jejich stavajici opce. Neprodavat hracum
+pred overenim. Pri chybnem chovani se tento kamen nezverejni.
+
+KLIENT
+- client/main.premium je vytvoren z posledni funkcni uzivatelovy verze.
+  Meneno pouze 9 novych prazdnych jewel zaznamu, pozice 10..18.
+  Pripojeni, licence, oprava map a skryte staty zustavaji bajtove shodne.
+- client/Data/Local/Eng/item_eng.bmd vychazi z dodaneho item_eng.bmd.
+  Meneno jen 9 prazdnych zaznamu. Kontrolni soucet prepocten a overen.
+- Nove kameny docasne sdileji existujici model Jewel184 (bez novych obrazku).
+- Puvodni item2.bmd se nemeni.
+- generator-reference je aktualizovana klientova CustomJewel konfigurace
+  pro budouci synchronizaci. V teto fazi nespoustet generator ani ji neinstalovat.
+
+SERVER - PRVNI PRIPRAVA
+1. Rozbalit na serveru do C:\Tools\AternixTierJewelsTEST01.
+2. Windows PowerShell jako spravce; odblokovat PripravitServerTest.ps1
+   a spustit jej. Nacist aktivni konfiguraci az podle dalsich instrukci.
+3. Skript overuje presne puvodni hashe Item.txt a CustomJewel.txt.
+   Pokud jsou jine, skonci pred zmenami. Nepreskakovat tuto kontrolu.
+4. Ocekava aktualni minimalni dvouradkovy ScriptMain.lua s TierProbe.
+   Nahrazuje ho dvouradkovym loaderem TierJewels. Puvodni probe soubor ponecha.
+5. Zalohy jsou mimo server v C:\Tools\AternixJewelBackups\tier-test-*.
+6. Skript nezapina Common, nerestartuje server a neprovadi Reload.
+
+KONTROLOVANY TEST
+- Nejdruve overit serverove nacitani novych Item/CustomJewel/Lua bez chyb.
+- Na domacim PC zavrit hru i launcher. Zalohovat main.premium A item_eng.bmd
+  mimo aktivni slozku hry; ponechat obe zalohy.
+- Nasadit pouze dva soubory z client/ do odpovidajicich mist v klientu.
+- Spustit primo main.exe, bez aktualizace launcheru (ta by vratila premium).
+- Overit pripojeni PRED vytvarenim novych kamenu. Nikoli patch pro ostatni.
+- GM vytvorit prvni B kamen: /drop 14 253 0 0 0 0 0.
+- Overit nazev, model, moznost pouziti, pridani presne jedne chybejici EX opce.
+- Na cizim tieru musi kamen zustat a item se nesmi zmenit.
+- Overit S kamen na A setu, setovy kamen na zbrani a zbranovy na setu.
+- Overit stejny tier na spravnem setu/zbrani a RF rukavice jako zbran.
+- Overit 0 EX opci a 6 EX opci: set/zbranovy kamen musi odmitnout.
+- Wings testovat zvlast na levnem testovacim kridle; ne na cennem itemu.
+- Serverovy log: Data\Script\AternixTierJewels.log (max. 200 zaznamu na reload).
+
+NAVRAT
+Na serveru ObnovitServerTest.ps1 obnovi zalohovane soubory, pokud je mezitim
+nikdo neupravil. Potom je potreba Reload Item a Reload Script, pripadne cisty
+restart testovaciho GameServeru. Common zustava beze zmeny.
+Na domacim PC vratit OBE zalohy: main.premium i item_eng.bmd.
+Samotny launcher by nevratil Item BMD, protoze tento balik nebyl publikovany
+v aktivnim manifestu. Ostatni hraci tento test nedostanou.
+
+OVERENO MIMO HRU
+- Indexy a nazvy v Item.txt; zvolene indexy byly prazdne.
+- Bez duplicit mezi kategoriemi, rozdeleni podle skutecne sekce itemu.
+- Lua pravidla proti vsem 371 cilum, vsem 64 EX maskam a chybnym vstupum.
+- Puvodni serverove jewel radky zachovany, nove efekty a registrace souhlasi.
+- BMD velikost, XOR, checksum a nezmenene ostatni zaznamy.
+- main.premium: velikost, dekodovani/kodovani, presne omezene rozdily.
+- Nativni Main.dll ma kapacitu 50 jewel zaznamu po 204 bajtech.
+- Windows instalacni skripty byly kontrolovany staticky, nikoli spusteny na
+  uzivatelove Windows. Nativni server, modely a Wings musi potvrdit herni test.

@@ -1,0 +1,2 @@
+PASS offline Lua tier/EX-mask tests and text/binary integrity checks.
+Native GameServer loading, new model display, jewel consumption and Wings options require in-game tests.

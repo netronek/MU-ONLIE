@@ -1,0 +1,85 @@
+{
+  "version": "tier-jewels-local-test-01",
+  "files": [
+    {
+      "path": "CTI-ME.txt",
+      "size": 5252,
+      "sha256": "bda60be9ca19febe75a797cdeb49b320e2330547b6f56c5dd2ccda8ceb3bcbfc"
+    },
+    {
+      "path": "ObnovitServerTest.ps1",
+      "size": 1313,
+      "sha256": "f2b8700abec84e432d5692ecbde40db6c46685e62f57d5ed9974939126b46bfa"
+    },
+    {
+      "path": "PripravitServerTest.ps1",
+      "size": 4177,
+      "sha256": "db06716a18907ad2f4b43e5c8678d0b5391a484f2e5e869fcae61136dd050945"
+    },
+    {
+      "path": "TEST-RESULTS.txt",
+      "size": 175,
+      "sha256": "2a4c6ec9a5efbb6fa6fafd73e936926d2b00fe195db81e3349bc3b5fd71246e2"
+    },
+    {
+      "path": "client/Data/Local/Eng/item_eng.bmd",
+      "size": 688132,
+      "sha256": "152190d45f4a0335c631e47cc85a332b9e685f41e32cb2fc53158a79b71f2abf"
+    },
+    {
+      "path": "client/main.premium",
+      "size": 3080544,
+      "sha256": "63c2e52d586b59241401c6d83c8fbf81e87a93083b4aef1cc823e367cce964f9"
+    },
+    {
+      "path": "generator-reference/Data/Custom/CustomJewel.txt",
+      "size": 7417,
+      "sha256": "d8cdaf66059c981e703b868691f157225d8bd16cd3b44a03e55af90855d4a278"
+    },
+    {
+      "path": "server/Data/Custom/CustomJewel.txt",
+      "size": 7586,
+      "sha256": "659bde83bbad339e132860fbf4b2236941727e25012b0f9018387fdd885bd376"
+    },
+    {
+      "path": "server/Data/Item/Item.txt",
+      "size": 248915,
+      "sha256": "51edafcc36553808a9b9935e81db94ae0d408f8c67c303d6cb6f5db9cca6fce2"
+    },
+    {
+      "path": "server/Data/Script/ScriptMain.lua",
+      "size": 68,
+      "sha256": "86d9c9571039e55d343907bd50ee8e40995f5ca06a3db57df0dcd7db9393c0f7"
+    },
+    {
+      "path": "server/Data/Script/Scripts/AternixTierJewels.lua",
+      "size": 3820,
+      "sha256": "9660f523f5e11c11d5fe1183333bf56907d07d59c6c925f3e97d659022321a3d"
+    },
+    {
+      "path": "server/Data/Script/Scripts/AternixTierJewelsConfig.lua",
+      "size": 17989,
+      "sha256": "d4264981357085f6c4cc593db344d6f99bd1de03e3e9c26c030ad2593c4ddff9"
+    },
+    {
+      "path": "server-CustomJewel-section0-ADD.txt",
+      "size": 923,
+      "sha256": "f1be572dc1c9b7614aac019105e963ec22f19d86f47b26df830d2a21e81149ad"
+    },
+    {
+      "path": "server-CustomJewel-section1-ADD.txt",
+      "size": 171,
+      "sha256": "03be4e171174f085accc77bc9acd590cee2682537c9f34d6ca044db91c587cbe"
+    },
+    {
+      "path": "server-Item-section14-ADD.txt",
+      "size": 437,
+      "sha256": "5a6f5562af8257a5bfddf0268ca02745bd5934467cc701f8d4b2d831b256b4d7"
+    },
+    {
+      "path": "verification.json",
+      "size": 3199,
+      "sha256": "9a6f8f9ae3d1863af97279613ea40134559052e4cb84acec1b6193e7e98becb3"
+    }
+  ]
+}

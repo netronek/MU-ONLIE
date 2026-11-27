@@ -1,0 +1,148 @@
+{
+  "status": "LOCAL TEST PACKAGE ONLY; native new jewel operation and Wings still need game testing",
+  "jewels": [
+    {
+      "record": 10,
+      "index": 7421,
+      "section": 14,
+      "type": 253,
+      "tier": "B",
+      "name": "Jewel of Excellent B"
+    },
+    {
+      "record": 11,
+      "index": 7422,
+      "section": 14,
+      "type": 254,
+      "tier": "A",
+      "name": "Jewel of Excellent A"
+    },
+    {
+      "record": 12,
+      "index": 7423,
+      "section": 14,
+      "type": 255,
+      "tier": "S",
+      "name": "Jewel of Excellent S"
+    },
+    {
+      "record": 13,
+      "index": 7424,
+      "section": 14,
+      "type": 256,
+      "tier": "X",
+      "name": "Jewel of Excellent X"
+    },
+    {
+      "record": 14,
+      "index": 7425,
+      "section": 14,
+      "type": 257,
+      "tier": "Wings",
+      "name": "Jewel of Excellent Wings"
+    },
+    {
+      "record": 15,
+      "index": 7426,
+      "section": 14,
+      "type": 258,
+      "tier": "WB",
+      "name": "Jewel of Excellent Weapon B"
+    },
+    {
+      "record": 16,
+      "index": 7427,
+      "section": 14,
+      "type": 259,
+      "tier": "WA",
+      "name": "Jewel of Excellent Weapon A"
+    },
+    {
+      "record": 17,
+      "index": 7429,
+      "section": 14,
+      "type": 261,
+      "tier": "WS",
+      "name": "Jewel of Excellent Weapon S"
+    },
+    {
+      "record": 18,
+      "index": 7430,
+      "section": 14,
+      "type": 262,
+      "tier": "WX",
+      "name": "Jewel of Excellent Weapon X"
+    }
+  ],
+  "tier_counts": {
+    "B": 65,
+    "A": 38,
+    "S": 110,
+    "WB": 53,
+    "WA": 22,
+    "WS": 24,
+    "X": 43,
+    "WX": 9,
+    "Wings": 7
+  },
+  "shield_policy": "Excluded pending user decision",
+  "higher_tier_weapon_overlap": [
+    {
+      "index": 2582,
+      "name": "Book of Neil",
+      "assigned": "WA"
+    }
+  ],
+  "legacy_7416": "Allowed only on current A (box +3) to retain prior tier filtering. Audit/remove sale of this legacy alternative before setting prices.",
+  "original_hashes": {
+    "server_Item.txt": "75a0b6bbe646eda559e697c85f089f0b71c1b3b908e184211f82bbc616787a8c",
+    "server_CustomJewel.txt": "7c7391071ab95f4d8ecb1b1b4af3f1f47e02b3112c8fcd440946049ac28d4184",
+    "client_CustomJewel_generator.txt": "b7d056b8bf7354144a1191d955da22d8373757b5b5f63e4b62db301491a31b5f",
+    "client_main.premium": "935c9699f632cbbda58ddd942094a1852c3ac21a13f1a7c278dea94a4a817390",
+    "client_item_eng.bmd": "c9eb254b144baefa12c07934b9f1170bc4e60a1fccd598267025e5adaa3320ef"
+  },
+  "new_hashes": {
+    "main.premium": "63c2e52d586b59241401c6d83c8fbf81e87a93083b4aef1cc823e367cce964f9",
+    "item_eng.bmd": "152190d45f4a0335c631e47cc85a332b9e685f41e32cb2fc53158a79b71f2abf"
+  },
+  "premium_changed_spans": [
+    [
+      399660,
+      399864
+    ],
+    [
+      399864,
+      400068
+    ],
+    [
+      400068,
+      400272
+    ],
+    [
+      400272,
+      400476
+    ],
+    [
+      400476,
+      400680
+    ],
+    [
+      400680,
+      400884
+    ],
+    [
+      400884,
+      401088
+    ],
+    [
+      401088,
+      401292
+    ],
+    [
+      401292,
+      401496
+    ]
+  ],
+  "client_jewel_capacity_verified_by_static_code": 50,
+  "prices": "Not set; no XShop files changed"
+}
